@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Homepage
+{% endblock title%}
+
+{% block page_content %}
+<div>
+	<h3><span style = "color : green;">Welcome | Karibu</span> {{app_name}}</h3>
+	<img class = "img-rounded" style = "width : 100%; height = auto;" src = "{{url_for('static', filename = 'tomatoes.jpeg')}}">
+	<p>
+	{{app_name}} is an profitable organization that intends to improve the economic status of its members through pooling financial resources.
+	<br>
+	The organization sustains itself through registration fees of its members, monthly
+	contributions, interest accrued through loans given to members and penalties for 
+	delayed payments.
+	<br>
+	The members benefit by getting cheap loans from the organization and dividends 
+	based on their monthly deposits.
+	</p>
+</div>
+
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "list-group-item-heading" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+        	<div class = "row">
+			<span class = "col-sm-6">
+				<img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/identity_theft.jpeg')}}" alt = "Media Object">
+			</span>
+			<span class = "col-sm-6">
+				<h4 class = "text-muted">
+                                        What is Identity Theft?                                                           </h4>                                                                                     <p>
+                                Identity theft happens when a fraudster acquires your                                     personal information and tries to steal money from your
+                        	accounts, opens new credit cards, applies for loans and
+				rents apartments, all using your identity.
+				<br>
+				This can result to damaged credit, unwanted bills and
+                                massive time wastage amid frustration while cleaning up                                   the mess.
+                                </p>
+                	</span>
+        	</div>
+	</span>
+</div>
+
+<div class = "list-group">
+	<span class = "list-group-item">
+		<h3 class = "list-group-item-heading">                                                             Are You a Member?
+                </h3>
+		<img class = "img-rounded" style = "width : 100%; height = auto;" src = "{{url_for('static', filename = 'fishing.jpeg')}}">
+		<p>
+		Membership is for all. Register with us today. 
+		<br>
+		There are two types of membership:
+		<ul>
+			<li>Individuals</li>
+			<li>Groups</li>
+		</ul>
+		Registration involves 
+		payment of a non-refundable fee of Ksh. 2000 for individuals and Ksh. 
+		5000 for groups. Groups are composed of two or more individuals with 
+		common interests.
+		<br>
+		Active members are assured of economic security and growth.
+		<br>
+		<a href = "{{url_for('registration.register_member')}}" class = "btn btn-success">Register Member
+		</a>
+		</p>
+	</span>
+</div>
+<div class = "list-group">
+	<span class = "list-group-item">
+		<h3 class = "list-item-heading">
+			Grab a Loan with Low Interest Rates
+		</h3>
+		<img class = "img-rounded" style = "width : 100%; height = auto;" src = "{{url_for('static', filename = 'loan.jpeg')}}">		
+		<p>
+		{{app_name}} aims at meeting you at your point of need. The
+		organization enables you to grow within your means with stability and 
+		security.
+		</p>
+		<h3 class = "text-muted">Monthly Deposits</h3>
+		<p>
+		Individual members contribute a share of not less than Ksh. 1000 to the 
+		organization. For groups, each member contributes a monthly share of not 
+		less than Ksh.1000 where Ksh. 200 is group share count by the members.
+		<br>
+		All payments to the organization are monthly and must be made by the last 
+		day of the month. Any defaulted payments are penalized at a rate of 10% 
+		per month.
+		<br>
+		All monthly contributions are treated as shares to contributions and 
+		attract annual dividends. Dividend rates are up to 60% of the accrued 
+		company funds.
+		</p>
+
+		{% if loans %}
+		<table class = "table table-hover table-striped table-bordered">
+			<caption><h3>Available Loans</h3></caption>
+			<thead class = "thead thead-dark">
+				<tr>
+					<th>Loan Description</th>
+					<th>Amount Multiplier on Deposits</th>
+					<th>Interest Rate (per month)</th>
+					<th>Maximum Period</th>
+					<th>Overdue Penalty</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for loan in loans %}
+				<tr>
+					<td>{{loan.description}}</td>
+					<td>x {{loan.multiplier}}</td>
+					<td>{{loan.rate}} %</td>
+					<td>{{loan.max_period}} years</td>
+					<td>{{loan.overdue_penalty}} %</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% endif %}
+	</span>
+</div>
+
+{% if reviews %}
+<h3 style = "color : green;">
+	Be Part of Our Success Stories
+</h3>
+
+<div class = "list-group">
+	<span class = "list-group-item">
+		{% for review in reviews %}
+		<blockquote class = "blockquote">
+			<div class = "row">
+				<div class = "col-sm-4">
+					<img class = "img-circle" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'profiles/member/' + review.associated_image)}}">
+				</div>
+				<div class = "col-sm-8">
+					<h4 class = "text-muted">
+						{{review.first_name}} {{review.middle_name}} {{review.last_name}}
+					</h4>
+					<p>"{{review.description}}"</p>
+					<cite>{{review.occupation}}</cite>
+				</div>
+			</div>
+		</blockquote>
+		{% endfor %}
+		<p>
+		<a href = "{{url_for('main.all_reviews')}}" class = "btn btn-primary">View More...</a>
+		</p>
+	</span>
+</div>
+{% endif %}
+{% endblock page_content %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    View Monthly Deposit Records
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/phishing.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Watch out for telephone scams
+                                </h4>
+				<ul>
+					<li>
+						Keep your new, canceled, and unused checks private.
+					</li>
+					<li>
+						Don’t give out personal or financial information over the phone, including checking account, credit card, and SSNs, unless you’resure the other party is legitimate.
+					</li>
+					<li>
+						Notify financial institutions of any suspicious phone calls that ask for account information.
+					</li>
+				</ul>
+			</span>
+		</div>
+	</span>
+</div>
+<div class "page-header">
+	<h3>Monthly Deposit Records</h3>
+</div>
+<div>
+	<table class = "table table-hover table-responsive table-striped">
+		<thead class = "thead thead-dark">
+			<tr>
+				<th>Transaction ID</th>
+				<th>Date</th>
+				<th>Member ID</th>
+				<th>Member</th>
+				<th>Month</th>
+				<th>Amount</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for deposit in deposits %}
+			<tr>
+				<td>{{deposit.deposit_id}}</td>
+				<td>{{moment(deposit.date_created).format('LLL')}}</td>
+				<td>
+					<a href = "{{url_for('profiles.member_profile', member_id = deposit.member_id)}}">
+						{{deposit.member_id}}
+					</a>
+				</td>
+                                </td>
+				<td>
+					<a href = "{{url_for('profiles.member_profile', member_id = deposit.member_id)}}">
+						{{deposit.first_name}} {{deposit.middle_name}} {{deposit.last_name}}
+					</a>
+				</td>
+				<td>{{deposit.description}}</td>
+				<td>Ksh. {{deposit.amount}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class = "pagination">
+	{{ macros.pagination_widget(pagination, 'profiles.view_monthly_deposits')}}
+</div>
+{% endblock page_content %}

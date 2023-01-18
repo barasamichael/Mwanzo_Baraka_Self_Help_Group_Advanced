@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Graphical Annual Comparison
+{% endblock title%}
+
+{% block page_content %}
+<div><canvas id = "myChart"></canvas></div>
+<script src="{{url_for('static', filename = 'js/Chart.min.js')}}"></script>
+<script>
+var data = {{deposits_json | safe}}
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, data);
+</script>
+{% endblock page_content %}

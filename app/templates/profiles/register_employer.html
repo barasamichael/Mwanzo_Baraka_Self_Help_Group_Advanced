@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Register Employer
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/hacked_2.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Protect Your Devices
+                                </h4>
+				<ul>
+					<li>
+						Learn how your device saves passwords and account numbers.
+					</li>
+					<li>
+						Confirm any software you use to store personal data is secure.
+					</li>
+					<li>
+						Set device to require a password when it starts and wakes up.
+					</li>
+				</ul>
+			</span>
+		</div>
+	</span>
+</div>
+<div class = "page-header">
+	<h3>Register Employer</h3>
+</div>
+<div>
+	{{wtf.quick_form(form)}}
+</div>
+{% endblock page_content %}

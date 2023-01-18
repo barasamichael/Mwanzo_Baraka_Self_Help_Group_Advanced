@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    List of Members
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+		<h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/identity_theft.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Guard your PINs and passwords
+                                </h4>
+				<ul>
+					<li>
+						Don’t write your PIN on your ATM or credit cards.
+					</li>
+					<li>
+						Don’t keep your PINs with your cards.
+					</li>
+					<li>
+						Don’t share PINs or passwords with friends or family.
+					</li>
+					<li>
+						The less personal information you carry, the better off you will be if your purse or wallet is stolen.
+					</li>
+					<li>
+						Check what you do carry, such as a medical card, for sensitive information like your SSN.
+					</li>
+				</ul>
+			</span>
+		</div>
+	</span>
+</div>
+<div class "page-header">
+	<h3>List of Members</h3>
+</div>
+<div>
+	<table class = "table table-hover table-responsive table-striped">
+		<thead class = "thead thead-dark">
+			<tr>
+				<th>Member ID</th>
+				<th>ID Number</th>
+				<th>Name</th>
+				<th>Gender</th>
+				<th>Email Address</th>
+
+				{% if current_user.can(Permission.REGISTER) %}
+				<th>Action</th>
+				{% endif %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for member in members %}
+			<tr>
+				<td>
+					<a href = "{{url_for('profiles.member_profile', member_id = member.member_id)}}">
+						{{member.member_id}}
+					</a>
+				</td>
+				<td>
+                                        <a href = "{{url_for('profiles.member_profile', member_id = member.member_id)}}">
+                                                {{member.id_no}}
+                                        </a>
+                                </td>
+				<td>
+					<a href = "{{url_for('profiles.member_profile', member_id = member.member_id)}}">
+						{{member.first_name}} {{member.middle_name}} {{member.last_name}}
+					</a>
+				</td>
+				<td>{{member.gender}}</td>
+				<td>{{member.email_address}}</td>
+					
+				{% if current_user.can(Permission.REGISTER) %}
+				<td>
+					{% if member.status != "deactivated" %}
+					<a class = "text-danger" href = "{{url_for('registration.change_member_status_m', member_id = member.member_id)}}">
+						deactivate
+					</a>
+					{% else %}
+					<a class = "text-success" href = "{{url_for('registration.change_member_status_m', member_id = member.member_id)}}">
+						activate
+					</a>
+					{% endif %}
+
+				</td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class = "pagination">
+	{{ macros.pagination_widget(pagination, 'profiles.list_of_members')}}
+</div>
+{% endblock page_content %}

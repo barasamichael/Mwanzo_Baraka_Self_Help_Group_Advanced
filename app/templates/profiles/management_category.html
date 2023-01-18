@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Our Team
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/hacking.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Keep track of monthly statements
+                                </h4>
+				<ul>
+					<li>
+						If your statements don’t reach you, call the company to find out why and confirm your address.
+					</li>
+					<li>
+						If your statements have suspicious items, don’t ignore them. Investigate them right away and contact your bank or creditor.
+					</li>
+					<li>
+						Try paperless statements; These can protect you against identity theft and reduce your mail. Most sites will also ask for your password to view statements.
+					</li>
+				</ul>
+			</span>
+		</div>
+	</span>
+</div>
+<div class = "pagination" style = "margin-bottom : 0; padding-bottom : 0;">               	{{ macros.pagination_widget(pagination, 'profiles.management_category', role_id = category.role_id) }}
+</div>
+<div class = "page-header" style = "margin-top : 0; padding-top : 0;">
+	<h2 style = "color : red;">{{ category.name }}</h2>
+</div>
+{% for item in users %}
+<div class = "col-sm-4">
+	<img class = "img-circle" src = "{{ url_for('static', filename = 'profiles/user/' + item.associated_image)}}" style = "width : 100%; height : auto;">
+	<h4 class = "text-center">
+		{{item.first_name}} {{item.middle_name}} {{item.last_name}}
+	</h4>
+	<h5 class = "text-center">{{item.email_address}}</h5>
+</div>
+{% endfor %}
+{% endblock page_content %}

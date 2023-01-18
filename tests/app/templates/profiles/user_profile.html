@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Profile - {{current_user.first_name}} {{current_user.middle_name}} {{current_user.last_name}}
+{% endblock title%}
+
+{% block page_content %}
+<div class = "page-header">
+	<h3>
+                {{current_user.first_name}} {{current_user.middle_name}} {{current_user.last_name}}
+        </h3>
+	{% if current_user.associated_image %}
+
+	<img style = "width : 50%; height : auto;" class = "img img-rounded" src = "{{url_for('static', filename = 'profiles/user/' + current_user.associated_image)}}">
+	{% elif current_user.gender == "male" %}
+
+	<img class = "img img-rounded" style = "width : 50%; height : auto;" src = "{{url_for('static', filename = 'profiles/male-avatar.png')}}">
+
+	{% else %}
+
+	<img class = "img img-rounded" style = "width : 50%; height : auto;" src = "{{url_for('static', filename = 'profiles/female-avatar.png')}}">
+
+	{% endif %}
+</div>
+<blockquote class "blockquote" style = "padding-bottom : 5%;">
+	<div class = "row">
+		<div class = "col-sm-4"><h4>Name</h4></div>
+		<div class = "col-sm-8"><h4 class = "text-muted">{{current_user.first_name}} {{current_user.middle_name}} {{current_user.last_name}}</h4>
+		</div>
+	</div>
+	<div class = "row">
+		<div class = "col-sm-4"><h4>National ID number</h4></div>
+		<div class = "col-sm-8"><h4 class = "text-muted">{{current_user.id_no}}</h4></div>
+	</div>
+	<div class = "row">
+		<div class = "col-sm-4"><h4>Gender</h4></div>
+		<div class = "col-sm-8"><h4 class = "text-muted">{{current_user.gender|title}}</h4></div>
+	</div>
+	<div class = "row">
+		<div class = "col-sm-4"><h4>Date of Birth</h4></div>
+		<div class = "col-sm-8"><h4 class = "text-muted">{{moment(current_user.date_of_birth).format( 'LL')}} - {{moment(current_user.date_of_birth).fromNow()}}</h4></div>
+	</div>
+	<div class = "row">
+		<div class = "col-sm-4"><h4>Nationality</h4></div>
+		<div class = "col-sm-8"><h4 class = "text-muted">{{current_user.nationality}}</h4></div>
+	</div>
+	<div class = "row">
+		<div class = "col-sm-4"><h4>Email address</h4></div>
+                <div class = "col-sm-8"><h4 class = "text-muted">{{current_user.email_address}}</h4></div>
+        </div>
+	<div class = "row">
+		<div class = "col-sm-4"><h4>Residential address</h4></div>
+		<div class = "col-sm-8"><h4 class = "text-muted">{{current_user.location_address}}</h4></div>
+        </div>
+
+	<!-- Update user profile image -->
+	<p>
+	<a class = "btn btn-primary pull-left" href = "{{url_for('registration.update_user_profile_image')}}">Update Profile Image</a>
+	<a class = "btn btn-primary pull-right" href = "{{url_for('registration.update_user_profile')}}">Update Profile</a>
+        </p>
+</blockquote>
+<hr>
+<div class = "list-group">
+	<a href = "{{url_for('registration.register_user')}}" class = "list-group-item active">
+		<h4 class = "list-group-item-heading">
+			Register User
+		</h4>
+	</a>
+	<a href = "{{url_for('profiles.list_of_users')}}" class = "list-group-item">
+		<h4 class = "list-group-item-heading">
+			View List of Users
+		</h4>
+	</a>
+</div>
+<div class = "list-group">
+	<a href = "{{url_for('registration.register_member')}}" class = "list-group-item active">
+		<h4 class = "list-group-item-heading">
+			Register New Member
+                </h4>
+        </a>
+	<a href = "{{url_for('profiles.list_of_members')}}" class = "list-group-item">
+		<h4 class = "list-group-item-heading">
+			View List of Members
+                </h4>
+        </a>
+</div>
+<div class = "list-group">
+	<a href = "{{url_for('profiles.register_document_type')}}" class = "list-group-item active">
+		<h4 class = "list-group-item-heading">
+                        Register New Document Type
+		</h4>
+        </a>
+</div>
+<div class = "list-group">
+	<a href = "{{url_for('profiles.register_loan_type')}}" class = "list-group-item active">
+                <h4 class = "list-group-item-heading">
+                        Register New Loan Type
+		</h4>
+	</a>
+	<a href = "{{url_for('profiles.view_loan_types')}}" class = "list-group-item">
+                <h4 class = "list-group-item-heading">
+                        View Loan Types
+		</h4>
+        </a>
+</div>
+<div class = "list-group">
+	<a href = "{{url_for('profiles.register_monthly_deposit')}}" class = "list-group-item active">
+		<h4 class = "list-group-item-heading">
+			Register Monthly Deposit
+                </h4>
+        </a>
+</div>
+<div class = "list-group">
+	<a href = "{{url_for('profiles.register_employer')}}" class = "list-group-item active">
+                <h4 class = "list-group-item-heading">
+                        Register Employer
+                </h4>
+        </a>
+	<a href = "{{url_for('profiles.view_employers')}}" class = "list-group-item">
+                <h4 class = "list-group-item-heading">
+                        View List of Employers
+                </h4>
+        </a>
+</div>
+<div class = "list-group">
+	<a href = "{{url_for('profiles.register_occupation')}}" class = "list-group-item active">
+                <h4 class = "list-group-item-heading">
+                        Register Occupation
+                </h4>
+        </a>
+	<a href = "{{url_for('profiles.view_occupations')}}" class = "list-group-item">
+                <h4 class = "list-group-item-heading">
+                        View Occupations
+                </h4>
+        </a>
+</div>
+<div class = "list-group">
+	<a class = "list-group-item active" href = "{{url_for('registration.register_event')}}">
+		<h4 class = "list-group-item-heading">
+			Register Event
+		</h4>
+	</a>
+	<a href= "{{url_for('main.list_of_events')}}" class = "list-group-item">
+		<h4 class = "list-group-item-heading">
+			View Registered Events
+		</h4>
+	</a>
+</div>
+<div class = "list-group">
+	<a href = "{{url_for('registration.register_branch')}}" class = "list-group-item active">
+		<h4 class = "list-group-item-heading">
+			Register Branch
+		</h4>
+	</a>
+	<a href = "{{url_for('main.branches')}}" class = "list-group-item">
+		<h4 class = "list-group-item-heading">
+			View Registered Branches
+		</h4>
+	</a>
+</div>
+{% endblock page_content %}

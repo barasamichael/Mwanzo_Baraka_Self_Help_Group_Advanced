@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    {{occupation.description}}
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/stealing.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Spoofing
+                                </h4>
+                                <p>
+				Spoofing is when a bogus website that looks legitimate 
+				asks for personal information for malicious purposes.
+				</p>
+				<h4 class = "text-muted">Stealing</h4>
+				<p>
+				Theft of laptops, smartphones and i-pads with unsecured 
+				data can occur with intent to acquire passwords and access
+				accounts.
+				</p>
+			</span>
+		</div>
+	</span>
+</div>
+
+<div class = "page-header">
+	<h3>{{occupation.description}}</h3>
+</div>
+
+<div>
+	<table class = "table table-responsive table-hover table-striped">
+		<thead class = "thead thead-dark">
+			<tr>
+				<th>employment ID</th>
+				<th>employer</th>
+				<th>member ID</th>
+				<th>member</th>
+				<th>gender</th>
+				<th>status</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for member in members %}
+			<tr>
+				<td>{{member.employment_id}}</td>
+				<td>
+					<a href = "{{url_for('profiles.employer_profile', employer_id = member.employer_id)}}">
+						{{member.name}}
+					</a>
+				</td>
+				<td>
+					<a href = "{{url_for('profiles.member_profile', member_id = member.member_id)}}">
+						{{member.member_id}}
+					</a>
+				</td>
+				<td>
+					<a href = "{{url_for('profiles.member_profile', member_id = member.member_id)}}">
+						{{member.first_name}} {{member.middle_name}} {{member.last_name}}
+					</a>
+				</td>
+				<td>{{member.gender}}</td>
+				<td>{{member.status}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock page_content %}

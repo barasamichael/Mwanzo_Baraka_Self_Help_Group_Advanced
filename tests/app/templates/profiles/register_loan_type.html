@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Register Loan Type
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/identity_theft_1.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Effects of Identity Theft
+                                </h4>
+				<ul>
+					<li>Damage of credit</li>
+					<li>Unwanted bills</li>
+					<li>Frustration and a lot of time wasted during the cleanup process</li>
+					<li>Thieves can pretend to be you and run up charges on your account.</li>
+					<li>They might also sign up for a phone or wireless service, forge counterfeit checks or debit cards, and buy 
+cars by taking out auto loans in your name.</li>
+				</ul>
+			</span>
+		</div>
+	</span>
+</div>
+<div class = "page-header">
+	<h3>Register Loan Type</h3>
+</div>
+<div>
+	{{wtf.quick_form(form)}}
+</div>
+{% endblock page_content %}

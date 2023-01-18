@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Gallery
+{% endblock title%}
+
+{% block page_content %}
+<h3>Gallery</h3>
+{% for item in events %}
+{% for key in item.keys() %}
+<div class = "list-group">
+	<span class = "list-group-item">
+		<h3 class = "list-group-item-header text-muted">
+			{{key.description}}
+		</h3>
+		
+		{% for image in item.get(key) %}
+		
+		<img class = "img-rounded" style = "width : 30%; height : auto; margin : 1%;" src = "{{url_for('static', filename = 'gallery/' + key.description + '/' + image.description)}}">
+		
+		{% endfor %}
+		<p style = "margin-top:1%;">
+		<a href = "{{url_for('main.event_profile', event_id = key.event_id)}}" class = "btn btn-primary">
+			View More ...
+		</a>
+		</p>
+	</span>
+</div>
+{% endfor %}
+{% endfor %}
+{% endblock %}

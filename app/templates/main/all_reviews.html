@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Member Reviews
+{% endblock title%}
+
+{% block page_content %}
+{% if reviews %}
+<h3 style = "color : green;">
+	Be Part of Our Success Stories
+</h3>
+<div class = "list-group">
+	<span class = "list-group-item">
+		{% for review in reviews %}
+		<blockquote class = "blockquote">
+			<div class = "row">
+				<div class = "col-sm-4">
+					<img class = "img-circle" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'profiles/member/' + review.associated_image)}}">
+				</div>
+				<div class = "col-sm-8">
+					<h4 class = "text-muted">
+						{{review.first_name}} {{review.middle_name}} {{review.last_name}}
+					</h4>
+					<p>"{{review.description}}"</p>
+					<cite>{{review.occupation}}</cite>
+				</div>
+			</div>
+		</blockquote>
+		{% endfor %}
+	</span>
+</div>
+<div class = "pagination">
+	{{macros.pagination_widget(pagination, 'main.all_reviews')}}
+</div>
+{% endif %}
+{% endblock page_content %}

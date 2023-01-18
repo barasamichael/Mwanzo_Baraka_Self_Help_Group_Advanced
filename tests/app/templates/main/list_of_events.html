@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Registered Events
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/phishing.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Watch out for telephone scams
+                                </h4>
+				<ul>
+					<li>
+						Keep your new, canceled, and unused checks private.
+					</li>
+					<li>
+						Don’t give out personal or financial information over the phone, including checking account, credit card, and SSNs, unless you’resure the other party is legitimate.
+					</li>
+					<li>
+						Notify financial institutions of any suspicious phone calls that ask for account information.
+					</li>
+				</ul>
+			</span>
+		</div>
+	</span>
+</div>
+<div class "page-header">
+	<h3>Registered Events</h3>
+</div>
+<div>
+	<table class = "table table-hover table-responsive table-striped">
+		<thead class = "thead thead-dark">
+			<tr>
+				<th>Event ID</th>
+				<th>Date Created</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for event in events %}
+			<tr>
+				<td>
+					<a href = '{{url_for('main.event_profile', event_id = event.event_id)}}'>
+						{{event.event_id}}
+					</a>
+				</td>
+				<td>{{moment(event.date_created).format('LLL')}}</td>
+				<td>
+					<a href = "{{url_for('main.event_profile', event_id = event.event_id)}}">
+						{{event.description}}
+					</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class = "pagination">
+	{{ macros.pagination_widget(pagination, 'main.list_of_events')}}
+</div>
+{% endblock page_content %}

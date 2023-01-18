@@ -1,2 +1,2 @@
-# Mwanzo_Baraka_Self_Help_Group_Advanced
-An Information System that manages transactions for a virtual self help group in Kenya
+# mwanzo_baraka_self_help_group
+A management system based on KCSE 2017 Computer Studies PP3

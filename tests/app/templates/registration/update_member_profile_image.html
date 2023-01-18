@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Update Profile Image - {{member.first_name}} {{member.middle_name}} {{member.last_name}}
+{% endblock title%}
+
+{% block page_content %}
+<div class = "page-header">
+	<h3>Update Profile Image</h3>
+</div>
+<div>
+	{{wtf.quick_form(form)}}
+</div>
+{% endblock page_content %}

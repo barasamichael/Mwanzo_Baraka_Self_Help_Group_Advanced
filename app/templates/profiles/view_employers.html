@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    List of Employers
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-employer">
+        <span class = "list-employer-item">
+                <h3 class =  "text-primary list-employer-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/hacked_1.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Hacking
+                                </h4>
+                                <p>
+				Fraudsters may install malicious programs on devices. 
+				These programs may capture keystrokes and network traffic 
+				to steal personal information such as user IDs and 
+				passwords.
+                                <br>
+				When encountered with such a situation contact your 
+				Internet Service Provider(ISP).
+				</p>
+			</span>
+		</div>
+	</span>
+</div>
+<div class "page-header">
+	<h3>List of Employers</h3>
+</div>
+<div>
+	<table class = "table table-hover table-responsive table-striped">
+		<thead class = "thead thead-dark">
+			<tr>
+				<th>Employer ID</th>
+				<th>Name</th>
+				<th>Location Address</th>
+				<th>Email Address</th>
+				<th>Employee Count</th>
+				{% if current_user.can(Permission.REGISTER) %}
+					<th>Action</th>
+				{% endif %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for employer in employers %}
+			<tr>
+				<td>
+					<a href = "{{url_for('profiles.employer_profile', employer_id = employer.employer_id)}}">
+						{{employer.employer_id}}
+					</a>
+				</td>
+				<td>
+					<a href = "{{url_for('profiles.employer_profile', employer_id = employer.employer_id)}}">
+						{{employer.name}}
+					</a>
+				</td>
+				<td>{{employer.location_address}}</td>
+				<td>{{employer.email_address}}</td>
+				<td>{{employer.employees.count()}}</td>
+
+				{% if current_user.can(Permission.REGISTER) %}
+				<td>
+					{% if employer.status == 'active' %}
+					<a class = "text-danger" href = "">
+						deactivate
+					</a>
+					{% else %}
+					<a class = "text-success" href = "">
+						activate
+					</a>
+					{% endif %}
+
+				</td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class = "pagination">
+	{{ macros.pagination_widget(pagination, 'profiles.view_employers')}}
+</div>
+{% endblock page_content %}

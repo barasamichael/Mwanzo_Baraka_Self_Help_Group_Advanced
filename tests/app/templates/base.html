@@ -1,0 +1,217 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7
+.1/min/dropzone.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+{% endblock scripts%}
+
+{% block title %}{{app_name|title}} - {% endblock title%}
+
+{% block head %}    
+    {{ super() }}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">     
+{% endblock head %}
+
+{% block navbar %}
+{{ super() }}
+<div class="navbar navbar-inverse" role="navigation">
+ <div class="container">
+     <div class="navbar-header">
+         <button type="button" class="navbar-toggle"
+         data-toggle="collapse" data-target=".navbar-collapse">
+             <span class="sr-only">Toggle navigation</span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </button>
+	 <a class="navbar-brand" style = "color : green;" href="/">{{app_name}}</a>
+
+	 <!--Search entry and button -->
+         <form class = "navbar-form navbar-right" role = "search">
+                 <div class = "form-group">
+                         <input type = "text" class = "form-control" placeholder="Search">
+                         <button type = "submit" class = "btn btn-default">                                                Submit                                                                            </button>
+                 </div>
+         </form>
+     </div>
+     <div class="navbar-collapse collapse">
+         <ul class="nav navbar-nav">
+		 <li><a href="{{url_for('main.homepage')}}">Home</a></li>
+		 <li class = "dropdown">
+			 <a href = "#" class = "dropdown-toggle" data-toggle="dropdown">
+				 Transactions
+				 <b class = "caret"></b>
+			 </a>
+			 <ul class = "dropdown-menu">
+				 <li>
+					 <a href = "{{url_for('profiles.view_registration_fees')}}">
+						 Registration Fees
+					 </a>
+				 </li>
+				 <li><a href = "{{url_for('profiles.view_monthly_deposits')}}">Monthly Deposits</a></li>
+				 <li><a href = "{{url_for('profiles.view_loans')}}">Loans</a></li>
+				 <li>
+					 <a href = "{{url_for('transactions.overdue_loans')}}">
+						 Overdue Charges - Loans
+					 </a>
+				 </li>
+				 <li>
+					 <a href = "{{url_for('transactions.overdue_monthly_deposits')}}">
+						 Overdue Charges - Monthly Deposits
+					 </a>
+				 </li>
+			 </ul>
+		 </li>
+		 <li class = "dropdown">
+                         <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
+                                 Membership
+                                 <b class = "caret"></b>
+                         </a>                                                                                      <ul class = "dropdown-menu">
+				 <li><a href = "{{url_for('profiles.list_of_members')}}">Members</a></li>
+				 <li><a href = "{{url_for('profiles.login_member')}}">Sign In</a></li>
+				 <li>
+					 <a href = "{{ url_for('registration.register_member')}}">
+						 Sign Up
+					 </a>
+				 </li>
+                         </ul>
+                 </li>
+		 <li class = "dropdown">
+                         <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
+                                 Company
+                                 <b class = "caret"></b>
+                         </a>                                                                                      <ul class = "dropdown-menu">
+                                 <li><a href = "#">Management</a></li>
+                                 <li><a href = "#">Income</a></li>
+                                 <li><a href = "#">Dividends</a></li>
+				 <li><a href = "#">Summary</a></li>
+                         </ul>
+                 </li>
+		 <li class = "dropdown">
+                         <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
+                                 About Us
+                                 <b class = "caret"></b>
+                         </a>                                                                                      <ul class = "dropdown-menu">
+				 <li>
+					<a href = "{{url_for('main.about_us')}}">
+						Operation
+					</a>
+				 </li>
+				 <li>
+					 <a href = "{{url_for('main.gallery')}}">
+						 Gallery
+					 </a>
+				 </li>
+				 <li>
+					 <a href = "{{url_for('main.branches')}}">
+						 Branches
+					 </a>
+				 </li>
+				 <li>
+                                         <a href = "{{url_for('main.all_reviews')}}">
+                                                 Reviews
+                                         </a>
+                                 </li>
+                         </ul>
+                 </li>
+		 <li><a href = "#">Contact Us</a></li>
+	 	
+		 {% if current_user.is_authenticated %}
+		 <li class="dropdown">
+			 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        	Account <b class="caret"></b>
+			 </a>
+			 <ul class="dropdown-menu">
+				 <li>
+					 <a href = "{{url_for('profiles.user_profile')}}">
+						 Profile
+					 </a>
+				 </li>
+				 <li><a href = "">Change Password</a></li>
+				 <li><a href = "">Change Email</a></li>
+				 <li>
+					 <a href = "{{url_for('authentication.logout')}}">
+						 Log Out
+					 </a>
+				 </li>
+			 </ul>
+		 </li>
+		 {% else %}
+
+		 <li><a href="{{ url_for('authentication.login') }}">Log In</a></li>
+
+		 {% endif %}
+	 </ul>
+     </div>
+ </div>
+</div>
+{% endblock navbar%}
+
+{% block content %}
+{{super()}}
+    <div class="container">        
+                {% for message in get_flashed_messages() %}
+                    <div class = "alert alert-info">
+                        <button type = "button" class = "close" data-dismiss = "alert">&times;</button>
+                         {{message}}
+                    </div>
+                {% endfor %}
+
+                {% block page_content %}{% endblock page_content%}            
+    </div>
+
+    <div>
+	    <footer class = "page-footer font-small jumbotron">
+		    <div class = "container-fluid text-center text-md-left">
+			    <div class = "row">
+				    <div class = "col-md-6 mt-md-0 mt-3">
+					    <h3 style = "font-family : 'Lucida Console', 'Courier New', monospace;" class = "text-uppercase">
+						    {{app_name}}
+					    </h3>
+				    </div>
+
+				    <hr class = "clearfix w-100 d-md-none pb-3">
+				    <div class = "col-md-3 mb-md-0 mb-3">
+					    <h5>
+						    Get connected with us on social networks!
+					    </h5>
+					    <ul class = "list-unstyled list-inline">
+						    <li class = "list-inline-item">
+							    <a class = "fb-ic">
+								    <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x">
+								    </i>
+							    </a>
+						    </li>
+						    <li class = "list-inline-item">
+							    <a class = "tw-ic">
+								    <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x">
+								    </i></a>
+                                                    </li>
+						    <li class = "list-inline-item">                                                             <a class = "gplus-ic">
+                                                                    <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x">
+                                                                    </i>                                                                        </a>
+                                                    </li>
+						    <li class = "list-inline-item">
+							    <a class = "ins-ic"><i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x">
+                                                                    </i>                                                                        </a>
+                                                    </li>
+					    </ul>
+				    </div>
+				    <div class = "footer-copyright text-center p-3">
+					    ©copyright :
+					    <a href = "#" >
+						    www.ourdigitaltimes.com
+					    </a>
+				    </div>
+			    </div>
+		    </div>
+	    </footer>
+    <div>
+{% endblock content %}

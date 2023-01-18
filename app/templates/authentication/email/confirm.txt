@@ -1,0 +1,12 @@
+Dear {{ User.first_name }},
+Welcome to {{ app_name }}!
+
+To activate your account please click on the following link
+{{ url_for('authentication.confirm', token = token, _external = True) }}
+
+Once activated, you'll have optimum access to {{app_name}}
+
+Sincerely,
+The {{ app_name }} Team
+
+Note : Replies to this email address are not monitored.

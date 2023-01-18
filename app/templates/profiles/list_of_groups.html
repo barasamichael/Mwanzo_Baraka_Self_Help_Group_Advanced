@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    List of Groups
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/hacked_1.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Hacking
+                                </h4>
+                                <p>
+				Fraudsters may install malicious programs on devices. 
+				These programs may capture keystrokes and network traffic 
+				to steal personal information such as user IDs and 
+				passwords.
+                                <br>
+				When encountered with such a situation contact your 
+				Internet Service Provider(ISP).
+				</p>
+			</span>
+		</div>
+	</span>
+</div>
+<div class "page-header">
+	<h3>List of Groups</h3>
+</div>
+<div>
+	<table class = "table table-hover table-responsive table-striped">
+		<thead class = "thead thead-dark">
+			<tr>
+				<th>Group ID</th>
+				<th>Name</th>
+				<th>Location Address</th>
+				<th>Email Address</th>
+				<th>Members</th>
+
+				{% if current_user.can(Permission.REGISTER) %}
+				<th>Action</th>
+				{% endif %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for group in groups %}
+			<tr>
+				<td>
+					<a href = "{{url_for('profiles.group_profile', group_id = group.group_id)}}">
+						{{group.group_id}}
+					</a>
+				</td>
+				<td>
+					<a href = "{{url_for('profiles.group_profile', group_id = group.group_id)}}">
+						{{group.name}}
+					</a>
+				</td>
+				<td>{{group.location_address}}</td>
+				<td>{{group.email_address}}</td>
+				<td>{{group.members.count()}}</td>
+
+				{% if current_user.can(Permission.REGISTER) %}
+				<td>
+					{% if group.active %}
+					<a class = "text-danger" href = "{{url_for('registration.change_group_status', group_id = group.group_id)}}">
+						deactivate
+					</a>
+					{% else %}
+					<a class = "text-success" href = "{{url_for('registration.change_group_status', group_id = group.group_id)}}">
+						activate
+					</a>
+					{% endif %}
+
+				</td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class = "pagination">
+	{{ macros.pagination_widget(pagination, 'profiles.list_of_groups')}}
+</div>
+{% endblock page_content %}

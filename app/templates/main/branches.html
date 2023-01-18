@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Our Branches
+{% endblock title%}
+
+{% block page_content %}
+<div class = "page-header">
+	<h2>Our Branches</h2>
+</div>
+{% for branch in branches %}
+<div class = "list-group">
+	<span class = "list-group-item">
+	{% if branch.associated_image %}
+	
+	<img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'branches/' + branch.associated_image)}}">
+	
+	{% endif %}
+
+	<h3>
+		{{app_name}} - 
+		<span style = "color:red;">{{branch.town}} Branch</span>
+	</h3>
+	<ul class = "list-unstyled">
+		<li>Location Address: {{branch.location_address}}</li>
+		<li>Phone Number : {{branch.phone_no}}</li>
+		<li>Email Address : {{branch.email_address}}</li>
+	</ul>
+	{% if current_user.is_authenticated  and current_user.can(Permission.REGISTER) %}
+	<p>
+	<a class = "btn btn-primary" href = "{{url_for('registration.upload_branch_image', branch_id = branch.branch_id)}}">
+		Upload Image
+	</a>
+	</p>
+	{% endif %}
+	</span>
+</div>
+{% endfor %}
+{% endblock page_content %}

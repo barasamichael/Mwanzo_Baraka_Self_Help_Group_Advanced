@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Register Document Type
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/pharming.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Skimming
+                                </h4>
+                                <p>
+				Skimming is fraudulent obtaining of credit and debit card 
+				numbers using special devices at Automatic Teller Machines
+				(ATMs) or when processing a purchase.
+                                <br>
+				</p>
+			</span>
+		</div>
+	</span>
+</div>
+<div class = "page-header">
+	<h3>Register Document Type</h3>
+</div>
+<div>
+	{{wtf.quick_form(form)}}
+</div>
+{% endblock page_content %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Update Overdue Monthly Deposit Records
+{% endblock title%}
+
+{% block page_content %}
+<div class = "page-header">
+	<h3>Apply Filters</h3>
+</div>
+<div>
+	{{wtf.quick_form(form)}}
+</div>
+{% endblock page_content %}

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    {{employer.name}}
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/identity_theft.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Report issues right away
+                                </h4>
+				<ul>
+					<li>
+						Report fraudulent activity, lost or stolen credit cards, and unrecognized checks.
+					</li>
+					<li>
+						Make sure checks that clear were written by you.
+					</li>
+					<li>
+						Review new checks to make sure none were stolen in transit.
+					</li>
+					<li>
+						Don’t pre-print personal
+information on checks
+					</li>
+					<li>
+						Be cautious with the privacy settings and the personal information you share on social media.
+					</li>
+				</ul>
+			</span>
+		</div>
+	</span>
+</div>
+<div class = "page-header">
+	<h3>{{employer.name}}</h3>
+</div>
+<blockquote class = "blockquote">
+	<h3 class = "text-muted">
+		Employer Details
+	</h3>
+	<div class = "row">
+		<div class = "col-sm-4"><b>Employer</b></div>
+		<div class = "col-sm-8">{{employer.name}}</div>
+	</div>
+	<div class = "row">
+		<div class = "col-sm-4"><b>Phone Number</b></div>
+		<div class = "col-sm-8">{{employer.phone_no}}</div>
+	</div>
+	<div class = "row">
+		<div class = "col-sm-4"><b>Email Address</b></div>
+		<div class = "col-sm-8">{{employer.email_address}}</div>
+	</div>
+	<div class = "row">
+		<div class = "col-sm-4"><b>Location</b></div>
+		<div class = "col-sm-8">{{employer.location_address}}</div>
+	</div>
+</blockquote>
+<div>
+	<table class = "table table-responsive table-hover table-striped">
+		<caption>
+			<h4>Registered Employees</h4>
+		</caption>
+		<thead class = "thead thead-dark">
+			<tr>
+				<th>member ID</th>
+				<th>member</th>
+				<th>gender</th>
+				<th>occupation</th>
+				<th>status</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for employee in employees %}
+			<tr>
+				<td>
+					<a href = "{{url_for('profiles.member_profile', member_id = employee.member_id)}}">
+						{{employee.member_id}}
+					</a>
+				</td>
+				<td>
+					<a href = "{{url_for('profiles.member_profile', member_id = employee.member_id)}}">
+						{{employee.first_name}} {{employee.middle_name}} {{employee.last_name}}
+					</a>
+				</td>
+				<td>{{employee.gender}}</td>
+				<td>
+					<a href = "{{url_for('profiles.occupation_details', occupation_id = employee.occupation_id)}}">
+						{{employee.description}}
+					</a>
+				</td>
+				<td>{{employee.status}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<div class = "pagination">
+        	{{ macros.pagination_widget(pagination, 'profiles.employer_profile', employer_id = employer.employer_id)}}
+	</div>
+</div>
+{% endblock page_content %}

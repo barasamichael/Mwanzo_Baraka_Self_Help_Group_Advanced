@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    List of Users
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/hacked_1.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Hacking
+                                </h4>
+                                <p>
+				Fraudsters may install malicious programs on devices. 
+				These programs may capture keystrokes and network traffic 
+				to steal personal information such as user IDs and 
+				passwords.
+                                <br>
+				When encountered with such a situation contact your 
+				Internet Service Provider(ISP).
+				</p>
+			</span>
+		</div>
+	</span>
+</div>
+<div class "page-header">
+	<h3>List of Users</h3>
+</div>
+<div>
+	<table class = "table table-hover table-responsive table-striped">
+		<thead class = "thead thead-dark">
+			<tr>
+				<th>ID Number</th>
+				<th>Name</th>
+				<th>Gender</th>
+				<th>Email Address</th>
+				<th>Occupation</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in users %}
+			<tr>
+				<td>{{user.id}}</td>
+				<td>{{user.first_name}} {{user.middle_name}} {{user.last_name}}</td>
+				<td>{{user.gender}}</td>
+				<td>{{user.email_address}}</td>
+				<td>{{user.role}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class = "pagination">
+	{{ macros.pagination_widget(pagination, 'profiles.list_of_users')}}
+</div>
+{% endblock page_content %}

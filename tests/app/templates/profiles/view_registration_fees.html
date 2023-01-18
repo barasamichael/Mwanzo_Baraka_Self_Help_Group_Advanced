@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    View Registration Fee Records
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/phishing.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">
+					Check your credit report
+                                </h4>
+				<ul>
+					<li>
+						You’re entitled to one free credit report every year from each of the three major credit reporting agencies.
+					</li>
+					<li>
+						You can also get a copy of your credit report anytime for a fee.
+					</li>
+					<li>
+						If you see suspicious accounts or inquiries, contact the agency.
+					</li>
+				</ul>
+			</span>
+		</div>
+	</span>
+</div>
+<div class "page-header">
+	<h3>Registration Fee Records</h3>
+</div>
+<div>
+	<table class = "table table-hover table-responsive table-striped">
+		<thead class = "thead thead-dark">
+			<tr>
+				<th>Transaction ID</th>
+				<th>Date</th>
+				<th>Member ID</th>
+				<th>Member</th>
+				<th>Amount</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for fee in fees %}
+			<tr>
+				<td>{{fee.fee_id}}</td>
+				<td>{{moment(fee.date_created).format('LLL')}}</td>
+				<td>
+					<a href = "{{url_for('profiles.member_profile', member_id = fee.member_id)}}">
+						{{fee.member_id}}
+					</a>
+				</td>
+                                </td>
+				<td>
+					<a href = "{{url_for('profiles.member_profile', member_id = fee.member_id)}}">
+						{{fee.first_name}} {{fee.middle_name}} {{fee.last_name}}
+					</a>
+				</td>
+				<td>Ksh. {{fee.amount}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class = "pagination">
+	{{ macros.pagination_widget(pagination, 'profiles.view_registration_fees')}}
+</div>
+{% endblock page_content %}

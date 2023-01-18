@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    View Occupations
+
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/hacking.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Keep track of monthly statements
+                                </h4>
+				<ul>
+					<li>
+						If your statements don’t reach you, call the company to find out why and confirm your address.
+					</li>
+					<li>
+						If your statements have suspicious items, don’t ignore them. Investigate them right away and contact your bank or creditor.
+					</li>
+					<li>
+						Try paperless statements; These can protect you against identity theft and reduce your mail. Most sites will also ask for your password to view statements.
+					</li>
+				</ul>
+			</span>
+		</div>
+	</span>
+</div>
+
+<div class = "page-header">
+	<h3>
+		Registered Occupations
+	</h3>
+</div>
+<div>
+	<table class = "table table-hover table-striped table-responsive table-bordered">
+		<tbody>
+			{% for occupation in occupations %}
+			<tr>
+				<td>
+					<a href = "{{url_for('profiles.occupation_details', occupation_id = occupation.occupation_id)}}">
+						{{occupation.description}}
+					</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+<div class = "pagination">
+	{{ macros.pagination_widget(pagination, 'profiles.view_occupations')}}
+</div>
+{% endblock page_content %}

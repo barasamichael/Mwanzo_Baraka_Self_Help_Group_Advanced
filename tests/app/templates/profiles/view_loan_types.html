@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Available Loans
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/hacking.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">
+					Stay alert when you’re online
+                                </h4>
+				<ul>
+					<li>
+						Make sure the websites you visit are secure and protect your data.
+					</li>
+					<li>
+						Look for websites that use Secure Socket Layer (SSL) technology to encrypt your personal information. Check for a small lock symbol in the lower corner of your browser or next to the URL.
+					</li>
+					<li>
+						Set strong passwords and don’t give them to anyone.
+					</li>
+				</ul>
+			</span>
+		</div>
+	</span>
+</div>
+
+<div class = "page-header">
+	<h2>Available Loans</h2>
+</div>
+
+{% for loan_type in loan_types %}
+<div class = "list-group">
+	<span class = "list-group-item">
+		<h3 class = "list-group-item-header">
+			{{loan_type.description}}
+		</h3>
+		<p>Features include : </p>
+		<ul>
+			<li>
+				You can borrow up to <b>{{loan_type.multiplier}} times your total monthly deposits.</b>
+			</li>
+			<li>
+				Simple interest rate of <b>{{loan_type.rate}}% per month.</b>
+			</li>
+			<li>
+				A favorable repayment period of up to <b>{{loan_type.max_period}} years.</b>
+			</li>
+		</ul>
+		<p>
+		<a class = "btn btn-primary" href = "{{url_for('profiles.update_loan_type', type_id = loan_type.loan_type_id)}}">
+			Update Loan Type
+		</a>
+		</p>
+	</span>
+</div>
+{% endfor %}
+{% endblock page_content %}

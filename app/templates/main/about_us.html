@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    About Us
+{% endblock title%}
+
+{% block page_content %}
+<h3>About Us</h3>
+<div class = "list-group">
+	<span class = "list-group-item">
+		<p>
+		{{app_name}} is a self help group intended to improve the 
+		economic status of its members through pooling of financial resources.
+		<br>
+		The organization sustains itself through registration fees of its members,
+		monthly contributions, interest accrued through loans given to members, 
+		and penalties for delayed payments.
+		<br>
+		The members benefit by getting cheap loans from the organization. 
+		Membership to the organization is by registration.
+		</p>
+		<img class = "img-rounded" style = "width : 100%; height : auto; margin-bo
+ttom : 1%;" src = "{{url_for('static', filename = 'money.jpeg')}}">
+	</span>
+</div>
+
+<h3 class = "text-muted">Membership</h3>
+<div class = "list-group">
+        <span class = "list-group-item">
+		<p>
+		There are two types of membership; individual and group.
+		<br>
+		Group membership constitutes two or more individuals who have common 
+		interests.
+		<br>
+		An individual member pays a registration fee of Kshs. 2,000 while a 
+		group pays Kshs. 5,000.
+		<br>
+		During the registration of individuals, personal details are captured.
+		<br>
+		When registering a group, details of the group and those of its 
+		individual members are captured.
+		</p>
+		<img class = "img-rounded" style = "width : 100%; height : auto; margin-bottom : 1%;" src = "{{url_for('static', filename = 'loan.jpeg')}}">
+        </span>
+</div>
+
+<h3 style  = "color:red;">Operation</h3>
+<div class = "list-group">
+        <span class = "list-group-item">
+		<p>
+		An individual member contributes a monthly share of not less than 
+		Kshs. 1,000 to the organization.
+		<br>
+		For those registered under a group, each member contributes a monthly 
+		share of not less than Kshs. 1,000 where Kshs. 200 is the group share 
+		contribution by the member.
+		<br>
+		All monthly contributions are treated as shares for the contributor and 
+		attract annual dividends.
+		</p>
+		<img class = "img-rounded" style = "width : 100%; height : auto; margin-bottom : 1%;" src = "{{url_for('static', filename = 'deposit.jpeg')}}">
+		<p>
+		Members can borrow loans from the organization based on their total 
+		shares. Members registered as individuals can be loaned up to three 
+		times their share contribution.
+		<br>
+		The repayment period does not exceed three years and the loan attracts 
+		interest at a rate of 1.2% per month on the principal amount borrowed.
+		<br>
+		Members registered under a group can be loaned up to four times their 
+		individual share contribution.
+		<br>
+		The repayment period does not exceed four years and the loan attracts an 
+		interest at a rate of 1% per month on the principal amount borrowed.
+		<br>
+		A group can also get a group loan, amounting to three times the group’s 
+		total share contribution which attracts interest at a rate of 0.8% per 
+		month payable within five years.
+		<br>
+		All payments to the organization are monthly and must be made by the last 
+		day of the month.
+		<br>
+		Any defaulted payments are penalized at a rate of 10% per month.
+		</p>
+		<img class = "img-rounded" style = "width : 100%; height : auto; margin-bottom : 1%;" src = "{{url_for('static', filename = 'interest.jpeg')}}">
+		<p>
+		Every end of the year, the organization determines the total interest 
+		charged on all loans and total penalties on defaulted amounts.
+		<br>
+		60% of this amount is paid as dividends to the shareholders each getting 
+		an amount proportional to their total share contributions. The balance 
+		is retained to run the organization.
+		</p>
+		<img class = "img-rounded" style = "width : 100%; height : auto; margin-bottom : 1%;" src = "{{url_for('static', filename = 'money_1.jpeg')}}">
+        </span>
+</div>
+
+<h3 style = "color:green;">Objectives</h3>
+<div class = "list-group">
+	<span class = "list-group-item">
+		<ul>
+			<li>
+				To provide a savings avenue to members and advance loans to them at an affordable rate of interest.</li>
+			<li>
+				To represent, promote and advance all member interests.
+			</li>
+			<li>
+				To promote education among members.
+			</li>
+			<li>
+				To seek support from and work cooperatively with organizations, agencies, groups, individuals, and other stakeholders having aims and objectives consistent with those we have.
+			</li>
+			<img class = "img-rounded" style = "width : 100%; height : auto; margin-bottom : 1%;" src = "{{url_for('static', filename = 'education.jpeg')}}">
+			<li>
+				To partner with affiliates and national associations to deliver services to members.
+			</li>
+			<li>
+				To initiate and coordinate savings and credit related programs.
+			</li>
+			<li>
+				To raise, use, invest and reinvest funds to support the above aims and objectives.
+			</li>
+			<li>
+				To partner with other development oriented institutions in improving the economic well being of members.
+			</li>
+		</ul>
+	</span>
+</div>
+{% endblock page_content %}

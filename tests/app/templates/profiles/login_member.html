@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+{{super()}}
+    Sign In Member
+{% endblock title%}
+
+{% block page_content %}
+<div class = "page-header">
+	<h1>Sign In</h1>
+</div>
+<div>
+	{{wtf.quick_form(form)}}
+</div>
+{% endblock page_content %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Upload Event Images - {{event.description}}
+{% endblock title%}
+
+{% block page_content %}
+<div class = "page-header">
+	<h3>{{event.description}} - Upload Images</h3>
+</div>
+<div>
+	<form action = "{{url_for('registration.upload_event_images', event_id = event.event_id)}}" class = "dropzone">
+	</form>
+	<script src = "{{url_for('static', filename = 'js/dropzone.min.js')}}">
+	</script>
+</div>
+{% endblock page_content %}

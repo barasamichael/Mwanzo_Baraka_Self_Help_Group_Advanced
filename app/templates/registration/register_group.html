@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Register Group
+{% endblock title%}
+
+{% block page_content %}
+<div class = "page-header">
+	<h3>Register Group</h3>
+</div>
+<div>
+	{{wtf.quick_form(form)}}
+</div>
+{% endblock page_content %}

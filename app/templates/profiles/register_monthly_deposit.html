@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Register Monthly Deposit
+{% endblock title%}
+
+{% block page_content %}
+<div class = "list-group">
+        <span class = "list-group-item">
+                <h3 class =  "text-primary list-group-item-header" style = "color : red;">
+                        Protect Yourself from Identity Theft
+                </h3>
+                <div class = "row">
+                        <span class = "col-sm-6">                                                                         <img class = "img-rounded" style = "width : 100%; height : auto;" src = "{{url_for('static', filename = 'inform_me/hacking.jpeg')}}" alt = "Media Object">
+                                </td>                                                                             </span>
+                        <span class = "col-sm-6">
+                                <h4 class = "text-muted">                                                                         Be creative with your passwords and change them often
+                                </h4>
+				<ul>
+					<li>
+						The most secure passwords combine letters, numbers and special characters.
+					</li>
+					<li>
+						Never use your pet's name, your child’s name or anything else that a fraudster could easily find out, like your address, phone number or birth date.
+					</li>
+					<li>
+						Don’t use information from your social media account for your password.
+					</li>
+					<li>
+						Avoid using the same password for multiple sites or financial institutions.
+					</li>
+				</ul>
+			</span>
+		</div>
+	</span>
+</div>
+
+<div class = "page-header">
+	<h3>Register Monthly Deposit</h3>
+</div>
+<div>
+	{{wtf.quick_form(form)}}
+</div>
+{% endblock page_content %}

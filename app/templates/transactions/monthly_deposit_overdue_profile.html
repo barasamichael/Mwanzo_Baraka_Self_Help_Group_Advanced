@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Overdue Monthly Deposit Profile - {{overdue.monthly_deposit_overdue_id}}
+    {% endblock title%}
+
+{% block page_content %}
+<blockquote>
+	<div class = 'row'>
+		<div class = 'col-sm-6'>
+			<b>Record ID</b>
+		</div>
+		<div class = 'col-sm-6'>
+			{{overdue.monthly_deposit_overdue_id}}
+		</div>
+	</div>
+
+	<div class = 'row'>
+		<div class = 'col-sm-6'>
+			<b>Month</b>
+		</div>
+		<div class = 'col-sm-6'>
+			{{overdue.description}}
+		</div>
+	</div>
+	
+	<div class = 'row'>
+		<div class = 'col-sm-6'>
+			<b>Member ID</b>
+		</div>
+		<div class = 'col-sm-6'>
+			<a href = '{{url_for('profiles.member_profile', member_id = overdue.member_id)}}'>
+				{{overdue.member_id}}
+			</a>
+		</div>
+	</div>
+
+	<div class = 'row'>
+		<div class = 'col-sm-6'>
+			<b>Member</b>
+		</div>
+		<div class = 'col-sm-6'>
+			<a href = '{{url_for('profiles.member_profile', member_id = overdue.member_id)}}'>
+				{{overdue.first_name}} {{overdue.middle_name}} {{overdue.last_name}}
+			</a>
+		</div>
+	</div>
+
+	<div class = 'row'>
+		<div class = 'col-sm-6'>
+			<b>Amount Required</b>
+		</div>
+		<div class = 'col-sm-6'>
+			{{overdue.amount}}
+		</div>
+	</div>
+
+	<div class = 'row'>
+		<div class = 'col-sm-6'>
+			<b>Amount Paid</b>
+		</div>
+		<div class = 'col-sm-6'>
+			{{paid}}
+		</div>
+	</div>
+
+	<div class = 'row'>
+		<div class = 'col-sm-6'>
+			<b>Outstanding Balance</b>
+		</div>
+		<div class = 'col-sm-6'>
+			{{overdue.amount - paid}}
+		</div>
+	</div>
+
+	<div class = 'row'>
+		<div class = 'col-sm-6'>
+			<b>Status</b>
+		</div>
+		<div class = 'col-sm-6'>
+			{% if overdue.status == 'pending' %}
+			
+			<span class = 'text-danger'>
+				{{overdue.status}}
+			</span>
+
+			{% elif overdue.status == 'paid' %}
+
+			<span class = 'text-success'>
+				{{overdue.status}}
+			</span>
+
+			{% endif %}
+		</div>
+	</div>
+
+	<div class = 'row'>
+		<div class = 'col-sm-6'>
+			<b>Date Created</b>
+		</div>
+		<div class = 'col-sm-6'>
+			{{moment(overdue.date_created).format('LLL')}}
+		</div>
+	</div>
+	
+	<div class = 'row'>
+		<div class = 'col-sm-6'>
+			<b>Last Updated</b>
+		</div>
+		<div class = 'col-sm-6'>
+			{{moment(overdue.last_updated).format('LLL')}}
+		</div>
+	</div>
+</blockquote>
+
+{% if overdue.status != 'paid' and current_user.can(Permission.REGISTER) %}
+<div class = 'list-group'>
+	<a class = 'list-group-item active' href = '{{url_for('transactions.pay_overdue_monthly_deposit', overdue_id = overdue.monthly_deposit_overdue_id)}}'>
+		<h4 class = 'list-group-item-header'>Make a Payment</h4>
+	</a>
+</div>
+{% endif %}
+
+<div>
+	<table class = "table table-hover table-responsive table-striped">
+		<caption>
+			<h3>Payment Records</h3>
+		</caption>
+		<thead class = "thead thead-dark">
+			<tr>
+				<th>Transaction ID</th>
+				<th>Date Created</th>
+				<th>Amount</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for payment in payments %}
+			<tr>
+				<td>{{payment.deposit_overdue_payment_id}}</td>
+				<td>{{moment(payment.date_created).format('LLL')}}</td>
+				<td>Ksh. {{payment.amount}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+<div class = "pagination">
+	{{ macros.pagination_widget(pagination, 'transactions.monthly_deposit_overdue_profile', overdue_id = overdue.monthly_deposit_overdue_id)}}
+</div>
+{% endblock page_content %}

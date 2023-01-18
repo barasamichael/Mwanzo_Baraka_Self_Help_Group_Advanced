@@ -1,0 +1,426 @@
+{% extends "base.html" %}
+{% block title %}
+    {{super()}}
+    Summary for the Financial Year {{year}}
+{% endblock title%}
+
+{% block page_content %}
+<script src = "{{url_for('static', filename = 'js/Chart.min.js')}}"></script>
+<div class = "page-header" style = "color:red;">
+	<h2>
+		Summary for the Financial Year {{year}}
+	</h2>
+</div>
+<div>
+	<blockquote class = "blockquote">
+		<div class = "row">
+                        <div class = "col-sm-7">
+                                Newly Registered Employees
+                        </div>
+                        <div class = "col-sm-5">
+                                <span class = "badge">
+                                {% if year_data.get('new employees') %}
+                                {{ year_data.get('new employees') }}
+                                {% else %}0{% endif %}
+                                </span>
+                        </div>
+                </div>
+		<div class = "row">
+                        <div class = "col-sm-7">
+                                Total Number of Employees
+                        </div>
+                        <div class = "col-sm-5">
+                                <span class = "badge">
+                                {% if year_data.get('total employees') %}
+                                {{ year_data.get('total employees') }}
+                                {% else %}0{% endif %}
+                                </span>
+                        </div>
+                </div>
+		<div class = "row">
+			<div class = "col-sm-7">
+				Members Registered within Year
+			</div>
+			<div class = "col-sm-5">
+				<span class = "badge">
+				{% if year_data.get('new members') %}
+				{{year_data.get('new members')}}
+				{% else %}0{% endif %}
+				</span>
+			</div>
+		</div>
+		<div class = "row">
+                        <div class = "col-sm-7">
+				Total Members
+			</div>
+                        <div class = "col-sm-5">
+				<span class = "badge">
+				{% if year_data.get('total members') %}
+				{{ year_data.get('total members') }}
+				{% else %}0{% endif %}
+				</span>
+			</div>
+                </div>
+		<hr>
+		<div class = "row">
+                        <div class = "col-sm-7">
+                                Loans Acquired Within Year
+                        </div>
+                        <div class = "col-sm-5">
+                                <span class = "badge">
+                                {% if year_data.get('loans supplied')[0].count %}
+                                {{ year_data.get('loans supplied')[0].count }}
+                                {% else %}0{% endif %}
+                                </span>
+                        </div>
+                </div>
+		<div class = "row">
+                        <div class = "col-sm-7">
+                                Pending Loans
+                        </div>
+                        <div class = "col-sm-5">
+                                <span class = "badge">
+                                {% if year_data.get('pending loans')[0].count %}
+                                {{year_data.get('pending loans')[0].count}}
+                                {% else %}0{% endif %}
+                                </span>
+                        </div>
+                </div>
+		<div class = "row">
+                        <div class = "col-sm-7">
+                                Defaulted Loans
+                        </div>
+                        <div class = "col-sm-5">
+                                <span class = "badge">
+                                {% if year_data.get('overdue loans')[0].count %}
+                                {{ year_data.get('overdue loans')[0].count }}
+                                {% else %}0{% endif %}
+                                </span>
+                        </div>
+                </div>
+		<div class = "row">
+                        <div class = "col-sm-7">
+                                Loans Paid Within Year
+                        </div>
+                        <div class = "col-sm-5">
+                                <span class = "badge">
+                                {% if year_data.get('paid loans')[0].count %}
+                                {{ year_data.get('paid loans')[0].count}}
+                                {% else %}0{% endif %}
+                                </span>
+                        </div>
+                </div>
+		<div class = "row">
+                        <div class = "col-sm-7">
+                                Number of Installments
+                        </div>
+                        <div class = "col-sm-5">
+                                <span class = "badge">
+                                {% if year_data.get('installments')[0].count %}
+                                {{ year_data.get('installments')[0].count }}
+                                {% else %}0{% endif %}
+                                </span>
+                        </div>
+                </div>
+		<hr>
+		<div class = "row">
+                        <div class = "col-sm-7">
+                                Loans Acquired Within Year
+                        </div>
+                        <div class = "col-sm-5">
+                                <span class = "badge">Ksh. 
+                                {% if year_data.get('loans supplied')[0].total %}
+                                {{ year_data.get('loans supplied')[0].total }}
+                                {% else %}0{% endif %}
+                                </span>
+                        </div>
+                </div>
+		<div class = "row">
+                        <div class = "col-sm-7">
+                                Pending Loans
+                        </div>
+                        <div class = "col-sm-5">
+                                <span class = "badge">Ksh. 
+                                {% if year_data.get('pending loans')[0].total %}
+                                {{ year_data.get('pending loans')[0].total }}
+                                {% else %}0{% endif %}
+                                </span>
+                        </div>
+                </div>
+		<div class = "row">
+                        <div class = "col-sm-7">
+                                Defaulted Loans
+                        </div>
+                        <div class = "col-sm-5">
+                                <span class = "badge">Ksh. 
+                                {% if year_data.get('overdue loans')[0].total %}
+                                {{ year_data.get('overdue loans')[0].total }}
+                                {% else %}0{% endif %}
+                                </span>
+                        </div>
+                </div>
+		<div class = "row">
+                        <div class = "col-sm-7">
+                                Loans Paid Within Year
+                        </div>
+                        <div class = "col-sm-5">
+                                <span class = "badge">Ksh. 
+                                {% if year_data.get('paid loans')[0].total %}
+                                {{ year_data.get('paid loans')[0].total}}
+                                {% else %}0{% endif %}
+                                </span>
+                        </div>
+                </div>
+		<div class = "row">
+                        <div class = "col-sm-7">
+                                Installments (amount)
+                        </div>
+                        <div class = "col-sm-5">
+                                <span class = "badge">Ksh. 
+                                {% if year_data.get('installments')[0].total %}
+                                {{ year_data.get('installments')[0].total }}
+                                {% else %}0{% endif %}
+                                </span>
+                        </div>
+                </div>
+	</blockquote>
+</div>
+<table class = "table table-hover table-responsive table-striped">
+	<caption>
+		<h3>Summary of Transactions Made Per Month</h3>
+	</caption>
+	<thead class = "thead thead-dark">
+		<tr>
+			<th>month</th>
+			<th>monthly deposits</th>
+			<th>acquired loans</th>
+			<th>overdue loans</th>
+			<th>overdue loan payments</th>
+			<th>installments</th>
+			<th>registration fees</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for data in month_data %}
+		<tr>
+			<td>{{ data.get('description') }}</td>
+			<td>{{ data.get('deposits')[0][0] }}</td>
+			<td>{{ data.get('loans')[0][0] }}</td>
+			<td>{{ data.get('loan overdues')[0][0] }}</td>
+			<td>{{ data.get('overdue payments')[0][0] }}</td>
+			<td>{{ data.get('installments')[0][0] }}</td>
+			<td>{{ data.get('registration fees')[0][0] }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<table class = "table table-hover table-responsive table-striped">
+        <caption>
+                <h3>Financial Records Per Month (in Ksh)</h3>
+        </caption>
+        <thead class = "thead thead-dark">
+                <tr>
+                        <th>month</th>
+                        <th>monthly deposits</th>
+                        <th>acquired loans</th>
+                        <th>overdue loans</th>
+                        <th>overdue loan payments</th>
+                        <th>installments</th>
+                        <th>registration fees</th>
+                </tr>
+        </thead>
+	<tbody>
+                {% for data in month_data %}
+                <tr>
+                        <td>{{ data.get('description') }}</td>
+			<td>
+				{% if data.get('deposits')[0][1] %}
+				{{ data.get('deposits')[0][1] }}
+				{% else %} 0 {% endif %}
+			</td>
+                        <td>
+				{% if data.get('loans')[0][1] %}
+				{{ data.get('loans')[0][1] }}
+				{% else %} 0 {% endif %}
+			</td>
+			<td>
+				{% if data.get('loan overdues')[0][1] %}
+				{{ data.get('loan overdues')[0][1] }}
+				{% else %} 0 {% endif %}
+			</td>
+                        <td>
+				{% if data.get('overdue payments')[0][1] %}
+				{{ data.get('overdue payments')[0][1] }}
+				{% else %} 0 {% endif %}
+			</td>
+                        <td>
+				{% if data.get('installments')[0][1] %}
+				{{ data.get('installments')[0][1] }}
+				{% else %} 0 {% endif %}
+			</td>
+                        <td>
+				{% if data.get('registration fees')[0][1] %}
+				{{ data.get('registration fees')[0][1] }}
+				{% else %} 0 {% endif %}
+			</td>
+                </tr>
+                {% endfor %}
+        </tbody>
+</table>
+
+<table class = "table table-hover table-striped table-responsive">
+	<caption>
+		<h3>Aggregate Financial Summary</h3>
+	</caption>
+	<thead class = "thead thead-dark">
+		<tr>
+			<th>Vote Description</th>
+			<th>Number of Records</th>
+			<th>Amount</th>
+		</tr>
+	</thead>
+	<tbody>
+		{%for key in aggregate_data.keys() %}
+		<tr>
+			<td>{{ key }}</td>
+			<td>{{ aggregate_data.get(key)[0][0] }}</td>
+			<td>Ksh. 
+				{% if aggregate_data.get(key)[0][1] %}
+				{{ aggregate_data.get(key)[0][1] }}
+				{% else %} 0 {% endif %}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<h3 class = "text-muted page-header">Profit and Dividends</h3>
+<div class = "row">
+	<div class = "col-sm-4">
+		<b class = "text-primary">Gross Profit</b>
+	</div>
+	<div class = "col-sm-2">
+		<span class = "badge" style = "margin-left : 10%;">
+			Ksh. {{profits.get('gross profit') }}
+		</span>
+	</div>
+</div>
+<div class = "row">
+	<div class = "col-sm-4">
+		<p style = "color : red;"><b>Credit</b></p>
+	</div>
+	<div class = "col-sm-2">
+		<p>
+		<b>
+			<span class = "badge">
+				Ksh. {{ profits.get('credit') }}
+			</span>
+		</b>
+		</p>
+	</div>
+	<div class = "col-sm-4">
+		<p style = "color : green;"><b>Debit</b></p>
+	</div>
+	<div class = "col-sm-2">
+		<p>
+		<b>
+			<span class = "badge">
+				Ksh. {{ profits.get('debit')}}
+			</span>
+		</b>
+		</p>
+        </div>
+</div>
+<div class = "row">
+        <div class = "col-sm-4">
+		<p style = "color : red;"><b>Member Dividends(60% total profit)</b></p>
+        </div>
+        <div class = "col-sm-2">
+                <p>
+		<b>
+			<span class = "badge">
+				Ksh. {{ profits.get('dividends') }} 
+			</span>
+		</b>
+		</p>
+        </div>
+        <div class = "col-sm-4">
+		<p style = "color : green;"><b>Company Profit(40% total profit)</b></p>
+        </div>
+        <div class = "col-sm-2">
+		<p>
+		<b>
+			<span class = "badge">
+				Ksh. {{ profits.get('company profit')}}
+			</span>
+		</b>
+		</p>
+        </div>
+</div>
+<table class = "table table-hover table-responsive table-striped">
+	<caption>
+		<h3>Comparison With Other Financial Years (in Ksh)</h3>
+	</caption>
+	<thead class = "thead thead-dark">
+		<tr>
+			<th>Financial Year</th>
+			<th>Monthly Deposits</th>
+			<th>Installments</th>
+			<th>Supplied Loans</th>
+			<th>Loan Overdue Payments</th>
+			<th>Registration Fees</th>
+			<th>Paid Loan Interest</th>
+			<th>Monthly Deposit Overdue Payments</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for data in year_comparison %}
+		<tr>
+			<td>{{ data.get('financial year') }}</td>
+			<td> 
+				{% if data.get('monthly deposits') %}
+				{{ data.get('monthly deposits') }}
+				{% else %}0{% endif %}
+			</td>
+			<td>
+                                {% if data.get('installments') %}
+                                {{ data.get('installments') }}
+                                {% else %}0{% endif %}
+                        </td>
+			<td>
+                                {% if data.get('supplied loans') %}
+                                {{ data.get('supplied loans') }}
+                                {% else %}0{% endif %}
+                        </td>
+			<td>
+                                {% if data.get('loan overdue payments') %}
+                                {{ data.get('loan overdue payments') }}
+                                {% else %}0{% endif %}
+                        </td>
+			<td>
+                                {% if data.get('registration fees') %}
+                                {{ data.get('registration fees') }}
+                                {% else %}0{% endif %}
+                        </td>
+			<td>
+                                {% if data.get('fully paid loan interest') %}
+                                {{ data.get('fully paid loan interest') }}
+                                {% else %}0{% endif %}
+                        </td>
+			<td>
+                                {% if data.get('monthly deposit overdue payments') %}
+                                {{ data.get('monthly deposit overdue payments') }}
+                                {% else %}0{% endif %}
+                        </td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<canvas id = "yearsComparisonChart"></canvas>
+<script>
+var data = {{ years_comparison_JSON | safe }}
+var ctx = document.getElementById("yearsComparisonChart").getContext("2d");
+var yearsComparisonChart = new Chart(ctx, data);
+</script>
+
+{% endblock page_content %}
